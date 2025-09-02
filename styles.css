@@ -10,6 +10,26 @@ body {
   text-align: center;
 }
 
+.favorites-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.favorite-card {
+  background-color: #760f0f;
+  color: rgb(236, 230, 230);
+  padding: 10px 20px;
+  margin: 10px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  width: 250px;
+}
+
+.author {
+  font-style: italic;
+}
+
 .btn {
   padding: 10px 20px;
   font-size: 16px;
