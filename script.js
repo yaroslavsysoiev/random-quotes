@@ -18,6 +18,8 @@ function generateRandomQuote() {
   toggleFavouriteBtn.textContent = randomQuote.isFavourite
     ? 'Remove from favourites'
     : 'Add to favourites';
+
+  toggleFavouriteBtn.style.display = 'inline-block';
 }
 
 function toggleFavourite() {
@@ -47,3 +49,5 @@ function toggleFavourite() {
 
 generateBtn.addEventListener('click', generateRandomQuote);
 toggleFavouriteBtn.addEventListener('click', toggleFavourite);
+
+// generateRandomQuote();
