@@ -9,15 +9,37 @@ const favoritesContainer = document.getElementById('favorites-container');
 let currentQuoteIndex = null;
 console.log(currentQuoteIndex);
 
+function toggleFavoriteIcon(isFavourite) {
+  toggleFavouriteBtn.classList.toggle('fa', isFavourite);
+  toggleFavouriteBtn.classList.toggle('far', !isFavourite);
+}
+
+function showFavouriteCard(quote, author) {
+  const favoriteCard = document.createElement('div');
+  favoriteCard.classList.add('favorite-card');
+  favoriteCard.innerHTML = `
+    <p>${quote}</p>
+    <p class="author">${author}</p>
+    `;
+  favoritesContainer.appendChild(favoriteCard);
+}
+
+function hideFavoriteCard(quote) {
+  const favoriteCards = document.querySelectorAll('.favorite-card');
+  favoriteCards.forEach((card) => {
+    if (card.textContent.includes(quote)) {
+      card.remove();
+    }
+  });
+}
+
 function generateRandomQuote() {
   currentQuoteIndex = Math.floor(Math.random() * quotes.length);
   const randomQuote = quotes[currentQuoteIndex];
   const { quote, author } = randomQuote;
   quoteElement.textContent = quote;
   quoteAuthorElement.textContent = author;
-  toggleFavouriteBtn.textContent = randomQuote.isFavourite
-    ? 'Remove from favourites'
-    : 'Add to favourites';
+  toggleFavoriteIcon(randomQuote.isFavourite);
 
   toggleFavouriteBtn.style.display = 'inline-block';
 }
@@ -25,25 +47,12 @@ function generateRandomQuote() {
 function toggleFavourite() {
   const currentQuote = quotes[currentQuoteIndex];
   currentQuote.isFavourite = !currentQuote.isFavourite;
-  toggleFavouriteBtn.textContent = currentQuote.isFavourite
-    ? 'Remove from favourites'
-    : 'Add to favourites';
+  toggleFavoriteIcon(currentQuote.isFavourite);
 
   if (currentQuote.isFavourite) {
-    const favoriteCard = document.createElement('div');
-    favoriteCard.classList.add('favorite-card');
-    favoriteCard.innerHTML = `
-    <p>${currentQuote.quote}</p>
-    <p class="author">${currentQuote.author}</p>
-    `;
-    favoritesContainer.appendChild(favoriteCard);
+    showFavouriteCard(currentQuote.quote, currentQuote.author);
   } else {
-    const favoriteCards = document.querySelectorAll('.favorite-card');
-    favoriteCards.forEach((card) => {
-      if (card.textContent.includes(currentQuote.quote)) {
-        card.remove();
-      }
-    });
+    hideFavoriteCard(currentQuote.quote);
   }
 }
 
